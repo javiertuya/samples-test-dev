@@ -1,0 +1,45 @@
+name: test-all
+on:
+  push:
+    branches-ignore:
+      - 'dependabot/**' #avoid duplicates: only run the PR, not the commit
+    tags-ignore:
+      - 'v*' #avoids rerun existing commit on release
+  pull_request:
+    branches:
+      - 'main'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout GitHub repo
+        uses: actions/checkout@v3
+      - name: Select Java Version
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '8'
+          cache: 'maven'
+
+      # - name: Build and test UT
+      #   run: mvn test -Dmaven.test.failure.ignore=true -U --no-transfer-progress
+      # Aunque solo los test it que ejecutan swing requieren un display Xvfb, ejecuto todo bajo esta accion
+      - name: Build and run all tests
+        run: mvn verify -Dmaven.test.failure.ignore=true -U --no-transfer-progress
+
+      - name: Publish surefire test report
+        if: always()
+        uses: mikepenz/action-junit-report@v3.3.3
+        with:
+          check_name: test-report
+          report_paths: 'target/*-reports/TEST-*.xml'
+          fail_on_failure: 'true'
+ 
+      - if: always()
+        name: Publish html test reports to an artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-reports-files
+          path: |
+             target/site/
