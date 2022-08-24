@@ -1,10 +1,12 @@
 [![Build Status](https://github.com/javiertuya/samples-test-dev/actions/workflows/test.yml/badge.svg)](https://github.com/javiertuya/samples-test-dev/actions/workflows/test.yml)
+[![Javadoc](https://img.shields.io/badge/%20-javadoc-blue)](https://javiertuya.github.io/samples-test-dev/)
 
 # samples-test-dev
 
 Este proyecto es utilizado como proyecto base para el desarrollo y a modo de ejemplo para ilustrar algunos aspectos del desarrollo y automatización de pruebas para las asignaturas relacionadas con ingenieria del software, sistemas de información y pruebas de software.
 
-[Descargar la última versión](https://github.com/javiertuya/samples-test-dev/releases)
+[Descargar la última versión](https://github.com/javiertuya/samples-test-dev/releases) - 
+[Ver más detalles en el javadoc](https://javiertuya.github.io/samples-test-dev/)
 
 ## Contenido
 
