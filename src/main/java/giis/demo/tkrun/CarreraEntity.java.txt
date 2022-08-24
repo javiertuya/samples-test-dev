@@ -1,0 +1,19 @@
+package giis.demo.tkrun;
+
+import lombok.*;
+/**
+ * Datos del modelo de dominio de cada una de las carreras.
+ * En esta entidad y los DTOs los getters y setters se generan automaticamente con Lombok
+ * (http://www.baeldung.com/intro-to-project-lombok).
+ * Para ejecutar desde eclipse hay que instalarlo en el entorno. 
+ * Ver https://projectlombok.org/setup/eclipse
+ */
+@Getter @Setter
+public class CarreraEntity {
+	//si se requiere contstructor con todos los parametros, incluir anotacion AllArgsConstructor
+	private String id;
+	private String inicio; //las fechas son string (vienen de sqlite)
+	private String fin;
+	private String fecha;
+	private String descr;
+}

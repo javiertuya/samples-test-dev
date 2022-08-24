@@ -1,0 +1,228 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>giis</groupId>
+	<artifactId>samples-test-dev</artifactId>
+	<version>2.0.0-SNAPSHOT</version>
+	<packaging>jar</packaging>
+	<organization>
+		<name>Grupo de Investigacion en Ingenieria del Software - Universidad de Oviedo</name>
+		<url>http://giis.uniovi.es/</url>
+	</organization>
+
+	<name>samples-test-dev</name>
+	<url>https://github.com/javiertuya/samples-test-dev</url>
+
+	<properties>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.13.2</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- pruebas junit con parametros -->
+		<dependency>
+			<groupId>pl.pragmatists</groupId>
+			<artifactId>JUnitParams</artifactId>
+			<version>1.1.1</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- lombok, para generar automaticamente getters y setters -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.24</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+		  <groupId>io.github.javiertuya</groupId>
+		  <artifactId>visual-assert</artifactId>
+		  <version>2.2.1</version>
+		</dependency>
+
+		<!-- drivers de base de datos -->
+		<dependency>
+			<groupId>org.xerial</groupId>
+			<artifactId>sqlite-jdbc</artifactId>
+			<version>3.39.2.0</version>
+		</dependency>
+		<!-- Logs -->
+		<dependency>
+		    <groupId>org.slf4j</groupId>
+		    <artifactId>slf4j-api</artifactId>
+		    <version>2.0.0</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.slf4j</groupId>
+		    <artifactId>slf4j-reload4j</artifactId>
+		    <version>2.0.0</version>
+		    <scope>provided</scope>
+		</dependency>
+		<!-- UI swing -->
+		<dependency>
+			<groupId>com.miglayout</groupId>
+			<artifactId>miglayout</artifactId>
+			<version>3.7.4</version>
+		</dependency>
+		<!-- utilidades varias para manejo de objetos y json -->
+		<dependency>
+			<groupId>commons-dbutils</groupId>
+			<artifactId>commons-dbutils</artifactId>
+			<version>1.7</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+			<version>1.9.4</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.13.3</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<!-- Ejecucion pruebas UT (surefire) -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.22.2</version>
+				<configuration>
+					<testFailureIgnore>true</testFailureIgnore>
+					<!-- Sets the VM argument line used when unit tests are run under JaCoCo -->
+					<argLine>${surefireArgLine}</argLine>
+					<redirectTestOutputToFile>true</redirectTestOutputToFile>
+					<!--para evitar fallos con openjdk en linux-->
+                	<useSystemClassLoader>false</useSystemClassLoader>
+				</configuration>
+			</plugin>
+
+			<!-- jacoco plugin for code coverage, 
+			     Ver: https://www.petrikainulainen.net/programming/maven/creating-code-coverage-reports-for-unit-and-integration-tests-with-the-jacoco-maven-plugin/ -->
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.8</version>
+				<configuration>
+					<excludes>
+						<exclude>**/TableColumnAdjuster.*</exclude>
+					</excludes>
+				</configuration>
+				<executions>
+					<execution>
+						<id>pre-unit-test</id>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+						<configuration>
+							<destFile>${project.build.directory}/coverage-reports/jacoco-ut.exec</destFile>
+							<propertyName>surefireArgLine</propertyName>
+						</configuration>
+					</execution>
+					<execution>
+						<id>post-unit-test</id>
+						<phase>test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+						<configuration>
+							<dataFile>${project.build.directory}/coverage-reports/jacoco-ut.exec</dataFile>
+							<outputDirectory>${project.reporting.outputDirectory}/jacoco-ut</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- reports test estandar de maven -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-report-plugin</artifactId>
+				<version>2.22.2</version>
+				<executions>
+					<execution>
+						<id>ut-reports</id>
+						<phase>test</phase>
+						<goals>
+							<goal>report-only</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- Reports de test en formato html estilo junit, generados con ant -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>3.1.0</version>
+				<executions>
+					<execution>
+						<id>junit-reports-ut</id>
+						<phase>test</phase>
+						<configuration>
+							<target unless="skipTests">
+								<junitreport todir="target/surefire-reports">
+									<fileset dir="target/surefire-reports">
+										<include name="**/*.xml" />
+									</fileset>
+									<report format="frames" todir="target/site/junit-frames" />
+									<report format="noframes" todir="target/site/junit-noframes" />
+								</junitreport>
+							</target>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>org.apache.ant</groupId>
+						<artifactId>ant-junit</artifactId>
+						<version>1.10.12</version>
+					</dependency>
+					<dependency>
+						<groupId>org.apache.ant</groupId>
+						<artifactId>ant-trax</artifactId>
+						<version>1.8.0</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+			
+			<!-- Generacion de documentacion javadoc (en fase install) -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>3.4.1</version>
+				<configuration>
+					<overview>${basedir}/src/main/java/overview.html</overview>
+					<sourcepath>${basedir}/src/main/java;${basedir}/src/test/java;${basedir}/src/it/java</sourcepath>
+					<outputDirectory>${project.reporting.outputDirectory}/apidocs</outputDirectory>
+					<quiet>true</quiet>
+					<doclint>none</doclint>
+				</configuration>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<phase>install</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			
+		</plugins>
+	</build>
+</project>

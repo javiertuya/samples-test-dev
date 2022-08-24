@@ -1,0 +1,73 @@
+<meta charset="UTF-8">
+<body>
+Ejemplo de inscripcion en carreras populares (implementacion MVC con Swing).
+
+<p>Este ejemplo se ha desarrollado siguiendo la secuencia de las historias de usuario que se muestran más abajo.
+A continuacón de los criterios de aceptación de cada una se indican detalles sobre las partes de 
+la aplicación que se han desarrollado y las pruebas automatizadas correspondientes.
+<br/>NOTA: Para facilitar el uso de este ejemplo todos los arhcivos se incluyen en un único paquete. 
+En una aplicación donde aumentará el número de archivos de código fuente, deberán clasificarse en los subpaquetes
+correspondientes (p.e. separando las vistas, controladores y modelos).
+</p>
+
+<ul>
+<li><strong>Como usuario quiero visualizar las carreras en las que está abierta la inscripción.</strong>
+<ul>
+<li><em>Criterios de aceptación:</em> Podré inscribirme a una carrera entre las fechas 
+de inicio y fin establecidas y también posteriormente hasta el día de la carrera (inclusive).
+Visualizaré el id y descripción de todas las carreras excluyendo las pasadas, 
+con la indicación del estado Abierto en las que se puede realizar inscripcion. 
+Para ilustrar el manejo de listas, además de formato tabla, se mostrará la lista de carreras en un combo box.
+La fecha de referencia es la fecha actual, pero se simulará esta fecha mediante un campo de texto y un botón para actualizar la lista.
+</li><li>
+<em>Notas sobre la implementación:</em> Implementados los métodos getListaCarreras* del modelo utilizando los métodos
+executeQuery* en la clase DbUtil y un DTO con los datos de la lista de carreras.
+Se utilizan métodos de utilidad (en DbUtil) que se encargan de todos los detalles de la consulta a la base de datos y manejo de excepciones usando 
+Apache commons-dbutils, por lo que la lógica de negocio se reduce a una sentencia SQL.
+<br/>En la vista se incluye la tabla y combo-box para visualizar las carreras y el textbox y 
+botón para simular la fecha de hoy.
+<br/>El controlador instala el evento de pulsación del ratón y un único método para mostrar los datos.
+<br/>Se utilizan metodos de utilidad (en SwingUtil) para cargar las tablas con los datos que provienen del modelo
+para reducir la cantidad de código a implementar.
+Esta pantalla se lanza desde CarrerasMain (la única que contiene un método main) con botones adicionales para 
+crear la base de datos y cargar datos para las pruebas durante el desarrollo.
+</li><li>
+<em>Notas sobre pruebas unitarias:</em> Se implementa TestCarreras* en paquete tkrun.ut con JUnit 3 para cubrir todas las situaciones 
+correspondientes al diseño de las pruebas del modelo. Se incluyen varios métodos que prueban la misma funcionalidad
+para ilustrar diferentes formas de automatizar la prueba y comparar resultados.
+</li><li>
+<em>Notas sobre pruebas del interfaz de usuario:</em> Se implementa una prueba simple en tkrun.it automatizada
+con AssertJ Swing.
+</li>
+</ul>
+
+<li><strong>Como usuario quiero visualizar los datos detallados de la carrera seleccionada.</strong>
+<ul>
+<li><em>Criterios de aceptación:</em> Si realizo la inscripción
+en las fechas de inscripción establecidas se aplica un descuento del 30%, si es después se aplica 0% y el día de
+la carrera un recargo del 50%.
+Cuando seleccione una carrera visualizaré todos los detalles de ésta y el
+porcentaje de descuento o recargo aplicable en función de la fecha de hoy. 
+Cuando cambie la fecha de hoy se actualizará la tabla con las carreras activas, 
+manteniendo la selección previa los detalles correspondientes.
+</li><li>
+<em>Notas sobre la implementación:</em> En el modelo se añade el método getDescuentoRecargo y getCarrera.
+<br/>En la vista se incluye una tabla para mostrar los detalles y un label para el porcentaje de descuento/recargo.
+Este ilustra una forma simple para mostrar todos los datos de un objeto del modelo de dominio (CarreraEntity) 
+en una tabla minimizando el código a desarrollar.
+<br/>El controlador añade la instalación del handler para la selección en la tabla, el método para mostrar detalles
+y se restructura la lógica para mantener la selección cuando cambia la tabla (o hacerla desaparecer si la
+carrera seleccionada ya no existe) y la consistencia entre la tabla de carreras y el detalle.
+</li><li>
+<em>Notas sobre pruebas unitarias:</em> Se implementa TestPorcentajeDescuento* en tkrun.ut con JUnit 3 para cubrir todas las situaciones 
+correspondientes al diseño de las pruebas del modelo (un método para válidas y otro para inválidas). 
+Se incluye una implementación adicional en JUnit 4 que repite varias pruebas
+para mostrar las diferencias con JUnit 3 y en especial el tratamiento de excepciones.
+</li><li>
+<em>Notas sobre pruebas del interfaz de usuario:</em> Se complementan las pruebas que ejercitan las situaciones
+diseñadas relativas a la seleccion de elementos y varias formas de comprobar los resultados de forma exhaustiva.
+</li>
+</ul>
+
+</ul>
+</body>
