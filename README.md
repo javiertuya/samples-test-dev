@@ -55,3 +55,11 @@ La instalacion anterior compilará, ejecutará pruebas y dispondrá de los repor
 - `site/surefire-report.html`: report de las pruebas unitarias (ut)
 - `site/junit*`: report consolidado de todas las pruebas con el formato que genera junit
 - `site/jacoco-ut`: reports de cobertura de código
+
+## GitHub Actions y Dependabot
+
+Este proyecto está configurado con los correspondientes scripts:
+- La ejecución del workflow está configurada pero desactivada para que no se ejecute tras push y pull request. 
+  Para reactivarla quitar los comentarios en las primeras líneas de `.github/workflows/test.yml`
+- Las actualizaciones de Dependabot están activadas. 
+  Para desactivarlas eliminar `.github/dependabot.yml`

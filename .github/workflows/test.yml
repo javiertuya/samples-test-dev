@@ -1,13 +1,15 @@
 name: test-all
 on:
-  push:
-    branches-ignore:
-      - 'dependabot/**' #avoid duplicates: only run the PR, not the commit
-    tags-ignore:
-      - 'v*' #avoids rerun existing commit on release
-  pull_request:
-    branches:
-      - 'main'
+  # Descomentar las siguientes lineas para activar la ejecucion de este worflow tras un push/PR
+  #push:
+  #  branches-ignore:
+  #    - 'dependabot/**' #avoid duplicates: only run the PR, not the commit
+  #  tags-ignore:
+  #    - 'v*' #avoids rerun existing commit on release
+  #pull_request:
+  #  branches:
+  #    - 'main'
+  workflow_dispatch:
 
 jobs:
   test:
