@@ -1,6 +1,7 @@
 package giis.demo.tkrun.ut;
 import org.junit.*;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
 
 import org.junit.rules.ExpectedException;
 
@@ -159,7 +160,9 @@ public class TestInscripcion {
 	}
 	/**
 	 * Utilizacion de reglas, para comprobar tambien los mensajes de las excepciones
+	 * (esta deprecated en las ultimas versiones)
 	 */
+	@SuppressWarnings("deprecation")
 	@Rule
 	public ExpectedException thrown = ExpectedException.none();
 	@Test
@@ -168,6 +171,17 @@ public class TestInscripcion {
 		thrown.expect(ApplicationException.class);
 		thrown.expectMessage("La fecha de inscripcion no puede ser nula");
 		inscr.getListaCarreras(null);
+	}
+	/**
+	 * Manejo de excepciones recomendado en junit 4 sin especificar una regla 
+	 */
+	@Test
+	public void testCarrerasActivasException3() {
+		CarrerasModel inscr=new CarrerasModel();
+		ApplicationException exception=assertThrows(ApplicationException.class, () -> {
+			inscr.getListaCarreras(null);
+		});
+		assertEquals("La fecha de inscripcion no puede ser nula", exception.getMessage());
 	}
 
 	/**
