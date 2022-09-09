@@ -18,16 +18,15 @@ Permite ilustrar, entre otros:
 - Estructura y configuración de un proyecto Maven y diferentes reports
 
 Contiene los siguientes paquetes principales:
-- giis.demo.jdbc: Repaso de acceso a base de datos con jdbc
-- giis.demo.tkrun: Ilustra estructura de proyecto MVC con Swing (TicketRun)
-- giis.demo.tkrun.ut: Ilustra pruebas con JUnit para TicketRun
-- giis.demo.tkrun.it: Ilustra pruebas con AssertJ Swing para TicketRun
-- giis.demo.util: Diferentes utilidades de uso por parte de los anteriores
+- `giis.demo.jdbc`: Repaso de acceso a base de datos con jdbc
+- `giis.demo.tkrun`: Ilustra estructura de proyecto MVC con Swing (TicketRun)
+- `giis.demo.tkrun.ut`: Ilustra pruebas con JUnit para TicketRun
+- `giis.demo.util`: Diferentes utilidades de uso por parte de los anteriores
 
 La estructura es la estándar de maven:
-- src/main/java: Codigo fuente de aplicación
-- src/test/java: Pruebas unitarias
-- target: Generado con el codigo objeto y reports
+- `src/main/java`: Codigo fuente de aplicación
+- `src/test/java`: Pruebas unitarias
+- `target`: Generado con el codigo objeto y reports
 
 ## Requisitos e Instalación
 
@@ -51,8 +50,8 @@ Programa principal (aplicaciones swing): `giis.demo.util.SwingMain`
 
 ## Reports
 
-La instalacion anterior compilará, ejecutará pruebas y dispondrá de los reports en `target/site`:
-- apidocs/index.html: javadoc del proyecto
-- surefire-report.html: report de las pruebas unitarias (ut)
-- junit*: report consolidado de todas las pruebas con el formato que genera junit
-- jacoco-ut: reports de cobertura de código
+La instalacion anterior compilará, ejecutará pruebas y dispondrá de los reports en carpetas dentro de `target`:
+- `apidocs/index.html`: javadoc del proyecto
+- `site/surefire-report.html`: report de las pruebas unitarias (ut)
+- `site/junit*`: report consolidado de todas las pruebas con el formato que genera junit
+- `site/jacoco-ut`: reports de cobertura de código
