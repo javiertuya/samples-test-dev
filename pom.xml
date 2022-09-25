@@ -21,6 +21,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<slf4j.version>2.0.2</slf4j.version>
 	</properties>
 
 	<dependencies>
@@ -60,13 +61,12 @@
 		<dependency>
 		    <groupId>org.slf4j</groupId>
 		    <artifactId>slf4j-api</artifactId>
-		    <version>2.0.0</version>
+		    <version>${slf4j.version}</version>
 		</dependency>
 		<dependency>
 		    <groupId>org.slf4j</groupId>
 		    <artifactId>slf4j-reload4j</artifactId>
-		    <version>2.0.0</version>
-		    <scope>test</scope>
+		    <version>${slf4j.version}</version>
 		</dependency>
 		<!-- UI swing -->
 		<dependency>
