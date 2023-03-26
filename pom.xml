@@ -5,7 +5,7 @@
 
 	<groupId>giis</groupId>
 	<artifactId>samples-test-dev</artifactId>
-	<version>2.0.5-SNAPSHOT</version>
+	<version>2.0.5</version>
 	<packaging>jar</packaging>
 	<organization>
 		<name>Grupo de Investigacion en Ingenieria del Software - Universidad de Oviedo</name>
@@ -21,7 +21,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<slf4j.version>2.0.6</slf4j.version>
+		<slf4j.version>2.0.7</slf4j.version>
 	</properties>
 
 	<dependencies>
@@ -48,14 +48,14 @@
 		<dependency>
 		  <groupId>io.github.javiertuya</groupId>
 		  <artifactId>visual-assert</artifactId>
-		  <version>2.2.2</version>
+		  <version>2.3.0</version>
 		</dependency>
 
 		<!-- drivers de base de datos -->
 		<dependency>
 			<groupId>org.xerial</groupId>
 			<artifactId>sqlite-jdbc</artifactId>
-			<version>3.40.1.0</version>
+			<version>3.41.2.1</version>
 		</dependency>
 		<!-- Logs -->
 		<dependency>
@@ -98,7 +98,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.22.2</version>
+				<version>3.0.0</version>
 				<configuration>
 					<testFailureIgnore>true</testFailureIgnore>
 					<!-- Sets the VM argument line used when unit tests are run under JaCoCo -->
@@ -149,7 +149,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-report-plugin</artifactId>
-				<version>2.22.2</version>
+				<version>3.0.0</version>
 				<executions>
 					<execution>
 						<id>ut-reports</id>
@@ -204,20 +204,22 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>3.4.1</version>
+				<version>3.5.0</version>
 				<configuration>
 					<overview>${basedir}/src/main/java/overview.html</overview>
 					<sourcepath>${basedir}/src/main/java;${basedir}/src/test/java;${basedir}/src/it/java</sourcepath>
-					<outputDirectory>${project.reporting.outputDirectory}/apidocs</outputDirectory>
+					<destDir>apidocs</destDir>
 					<quiet>true</quiet>
 					<doclint>none</doclint>
 				</configuration>
 				<executions>
 					<execution>
-						<id>attach-javadocs</id>
+						<id>generate-all-javadocs</id>
 						<phase>install</phase>
 						<goals>
-							<goal>jar</goal>
+							<!--normalmente este goal seria jar, no interesa el jar, solo el javadoc
+							y evita warnings/errores porque se estan generando javadocs de los tests-->
+							<goal>test-javadoc</goal>
 						</goals>
 					</execution>
 				</executions>
