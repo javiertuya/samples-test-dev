@@ -59,7 +59,7 @@ La instalacion anterior compilará, ejecutará pruebas y dispondrá de los repor
 ## GitHub Actions y Dependabot
 
 Este proyecto está configurado con los correspondientes scripts:
-- La ejecución del workflow está configurada pero desactivada para que no se ejecute tras push y pull request. 
-  Para reactivarla quitar los comentarios en las primeras líneas de `.github/workflows/test.yml`
+- La ejecución del workflow está configurada para que se ejecute tras push y pull request. 
+  Para desactivarla comentar las primeras líneas de `.github/workflows/test.yml`
 - Las actualizaciones de Dependabot están activadas. 
   Para desactivarlas eliminar `.github/dependabot.yml`
