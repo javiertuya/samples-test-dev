@@ -3,3 +3,5 @@ target
 #sqlite databases
 *.db 
 
+/.apt_generated/
+/.apt_generated_tests/
