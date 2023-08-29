@@ -5,7 +5,7 @@
 
 	<groupId>giis</groupId>
 	<artifactId>samples-test-dev</artifactId>
-	<version>2.0.5</version>
+	<version>2.0.6-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<organization>
 		<name>Grupo de Investigacion en Ingenieria del Software - Universidad de Oviedo</name>
@@ -21,6 +21,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<surefire.version>3.1.2</surefire.version>
 		<slf4j.version>2.0.7</slf4j.version>
 	</properties>
 
@@ -98,7 +99,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>3.1.2</version>
+				<version>${surefire.version}</version>
 				<configuration>
 					<testFailureIgnore>true</testFailureIgnore>
 					<!-- Sets the VM argument line used when unit tests are run under JaCoCo -->
@@ -149,7 +150,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-report-plugin</artifactId>
-				<version>3.1.2</version>
+				<version>${surefire.version}</version>
 				<executions>
 					<execution>
 						<id>ut-reports</id>
