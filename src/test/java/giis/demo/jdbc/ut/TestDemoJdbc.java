@@ -23,4 +23,8 @@ public class TestDemoJdbc extends TestCase {
 		DemoJdbc d=new DemoJdbc();
 		d.demo4DbUtils();
 	}
+	public void testDemo5Autoincrement() {
+		DemoJdbc d=new DemoJdbc();
+		d.demo5Autoincrement();
+	}
 }
