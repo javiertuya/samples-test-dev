@@ -43,7 +43,8 @@ Preparación del proyecto:
   - `.project`: cambiar `<name>samples-test-dev</name>` para incluir el nombre del proyecto
   - `pom.xml`: cambiar `<artifactId>samples-test-dev</artifactId>` para incluir el nombre del proyecto
 
-Ejecución del proyecto:
+## Ejecución del proyecto:
+
 - Desde línea de comandos con [Apache Maven](https://maven.apache.org/download.cgi):
   - Asegurarse de que JAVA_HOME apunta a un JDK y no JRE
   - Ejecución completa: `mvn install`, incluye generación del Javadoc
@@ -68,10 +69,18 @@ La instalacion anterior compilará, ejecutará pruebas y dispondrá de los repor
 - `site/junit*`: report de todas las pruebas con el formato que genera junit
 - `site/jacoco-ut`: reports de cobertura de código
 
-## GitHub Actions y Dependabot
+## Personalización de GitHub Actions y Dependabot
 
-Este proyecto está configurado con los correspondientes scripts:
-- La ejecución del workflow está configurada para que se ejecute tras push y pull request. 
-  Para desactivarla comentar las primeras líneas de `.github/workflows/test.yml`
-- Las actualizaciones de Dependabot están activadas. 
-  Para desactivarlas eliminar `.github/dependabot.yml`
+Este proyecto está configurado con los correspondientes scripts de Dependabot (para actualización de versiones de dependencias)
+y GitHub actions (para realizar acciones automáticas cuando se realiza un pull request hacia main o un push de una rama).
+A continuación se describen y se indican las posibles personalizaciones a realizar:
+
+- `.github/workflows/test.yml`: Ejecuta automáticamente un build y todas las pruebas unitarias.
+  Aunque se puede eliminar o desactivar. Si se mantiene,
+  en el caso de que no se tengan pruebas unitarias, modificarlo para que compile la aplicación de la siguiente forma:
+  - cambiar `verify` por `compile` en la acción `run: mvn verify ...`
+  - eliminar el código a partir de `- name: Publish surefire test report`
+- `.github/workflows/pages.yml`: Exporta el javadoc de la aplicación a GitHub pages, e indiará fallo
+  si no se ha configurado el repositorio para ello, por lo que se puede eliminar.
+- `.github/dependabot.yml`: Permite que Dependabot cree una pull request cuando hay alguna dependencia
+  que precisa actualización. Se recomienda mantenerlo.
