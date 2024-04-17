@@ -147,7 +147,11 @@ public class TestInscripcion {
         		Util.pojosToCsv(carreras,new String[] {"id","descr","estado"}));
  	}
 	
+	// Tipicamente para clases invalidas el comportamiento deseado es que se produzca una excepcion.
+	// A continuacion se realiza lo mismo de tres formas distintas
+	
 	/**
+	 * Metodo 1 para comprobacion de excepciones:
 	 * No se han determinado en el disenyo clases invalidas, pero para completar la prueba se comprobara
 	 * la validez de los parametros recibidos.
 	 * En getListaCarreras solo hay una fecha, que podria ser nula si es invocado incorrectmente.
@@ -159,8 +163,10 @@ public class TestInscripcion {
 		inscr.getListaCarreras(null);
 	}
 	/**
-	 * Utilizacion de reglas, para comprobar tambien los mensajes de las excepciones
-	 * (esta deprecated en las ultimas versiones)
+	 * Metodo 2 para comprobacion de excepciones en JUnit 4:
+	 * Requiere utilizar una regla que declara la clase de la excepcion esperada
+	 * y permite tambien comprobar el mensaje de la excepcion.
+	 * Notar que este metodo esta obsoleto, no deberia usarse con las ultimas versiones de JUnit
 	 */
 	@SuppressWarnings("deprecation")
 	@Rule
@@ -173,7 +179,11 @@ public class TestInscripcion {
 		inscr.getListaCarreras(null);
 	}
 	/**
-	 * Manejo de excepciones recomendado en junit 4 sin especificar una regla 
+	 * Metodo 3 para comprobacion de excepciones en JUnit 4:
+	 * Utiliza una expresion lambda y un assert, en el que en vez de indicar salida actual y esperada,
+	 * se le incluye el codigo a ejecutar en el que se espera la excepcion.
+	 * Es el mas completo y recomendado, no requiere definicion de reglas y permite tambien la comprobacion
+	 * del mensaje de la excepcion.
 	 */
 	@Test
 	public void testCarrerasActivasException3() {
@@ -209,7 +219,6 @@ public class TestInscripcion {
 	 * (Cubre las clases invalidas, a las que habria que anyadir la validacion de la fecha)
 	 * Se podria realizar en tres metodos similares a los anteriores o en uno solo con tres partes similares.
 	 * Para evitar duplicacion de codigo se utiliza un metodo generico invocado desde los tres tests
-	 * (utiliza la regla ExpectedException definida antes)
 	 */
 	@Test public void testPorcentajeDescuentoRecargoInvalidaCarreraFinalizada() {
 		porcentajeDescuentoRecargoInvalidas(100,"No es posible la inscripcion en esta fecha");
@@ -223,9 +232,10 @@ public class TestInscripcion {
 	public void porcentajeDescuentoRecargoInvalidas(long idCarrera, String message) {
 		Date fecha=Util.isoStringToDate("2016-11-10");
 		CarrerasModel inscr=new CarrerasModel();
-		thrown.expect(RuntimeException.class);
-		thrown.expectMessage(message);
-		inscr.getDescuentoRecargo(idCarrera,fecha);
+		ApplicationException exception=assertThrows(ApplicationException.class, () -> {
+			inscr.getDescuentoRecargo(idCarrera,fecha);
+		});
+		assertEquals(message, exception.getMessage());
 	}
 
 }

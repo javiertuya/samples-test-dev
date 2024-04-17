@@ -1,6 +1,7 @@
 package giis.demo.tkrun.ut;
 import org.junit.*;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
 
 import org.junit.runner.RunWith;
 import junitparams.Parameters;
@@ -40,6 +41,23 @@ public class TestInscripcionJUnitParams {
 		Date fecha=Util.isoStringToDate(fechaStr);
 		CarrerasModel inscr=new CarrerasModel();
 		assertEquals(descuentoRecargo,inscr.getDescuentoRecargo(idCarrera,fecha));
+	}
+	
+	/**
+	 * De la misma forma se pueden probar las clases invalidas que comprueban que aparezca una excepcion
+	 */
+	@Test
+	@Parameters({ 
+		"100, No es posible la inscripcion en esta fecha",
+		"104, No es posible la inscripcion en esta fecha",
+		"99, Id de carrera no encontrado: 99"})
+	public void testPorcentajeDescuentoRecargoInvalidas(long idCarrera, String message) {
+		Date fecha=Util.isoStringToDate("2016-11-10");
+		CarrerasModel inscr=new CarrerasModel();
+		ApplicationException exception=assertThrows(ApplicationException.class, () -> {
+			inscr.getDescuentoRecargo(idCarrera,fecha);
+		});
+		assertEquals(message, exception.getMessage());
 	}
 
 }
