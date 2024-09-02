@@ -32,16 +32,16 @@ La estructura es la estándar de maven:
 
 Este proyecto requiere un mínimo de Java 8 JDK.
 
-Preparación del proyecto:
-- Si se va a utilizar solamente para pruebas y experimentación, clonar/descargar el zip
-  (opción `<> Code` en esta página) o desde [Releases](https://github.com/javiertuya/samples-test-dev/releases)
-- Si se va a utilizar como plantilla para un proyecto propio en GitHub,
-  Crear el repositorio directamente en Git usando este proyecto como plantilla
-  (opción `Use this template` en esta página)
-- En este segundo caso es imprescindible cambiar `samples-test-dev` por el nombre del nuevo proyecto
-  (se puede hacer desde el propio repositorio creado) en los ficheros:
+Preparación del repositorio y del eproyecto:
+- Desde GitHub: Crear un **nuevo repositorio** usando este proyecto como plantilla
+  (opción `Use this template` en este repositorio)
+- Desde el entorno de desarrollo local o desde linea de comandos:
+  **Clonar** el repositorio recién creado indicando su url
+  (si se hace desde linea de comandos: `git clone <url>`)
+- Cambiar el **nombre del proyecto**: Modificar estos ficheros:
   - `.project`: cambiar `<name>samples-test-dev</name>` para incluir el nombre del proyecto
   - `pom.xml`: cambiar `<artifactId>samples-test-dev</artifactId>` para incluir el nombre del proyecto
+  - Recordar hacer push a main tras estos cambios
 
 ## Ejecución del proyecto:
 
@@ -76,11 +76,12 @@ y GitHub actions (para realizar acciones automáticas cuando se realiza un pull 
 A continuación se describen y se indican las posibles personalizaciones a realizar:
 
 - `.github/workflows/test.yml`: Ejecuta automáticamente un build y todas las pruebas unitarias.
-  Aunque se puede eliminar o desactivar. Si se mantiene,
-  en el caso de que no se tengan pruebas unitarias, modificarlo para que compile la aplicación de la siguiente forma:
+  Si se mantiene,
+  en el caso de que no se tengan pruebas unitarias, modificarlo para que solamente compile la aplicación:
   - cambiar `verify` por `compile` en la acción `run: mvn verify ...`
   - eliminar el código a partir de `- name: Publish surefire test report`
-- `.github/workflows/pages.yml`: Exporta el javadoc de la aplicación a GitHub pages, e indiará fallo
+- `.github/workflows/pages.yml`: Exporta el javadoc de la aplicación a GitHub pages cuando se actualiza la rama main.
+  La ejecución del workflow indicará fallo
   si no se ha configurado el repositorio para ello, por lo que se puede eliminar.
 - `.github/dependabot.yml`: Permite que Dependabot cree una pull request cuando hay alguna dependencia
-  que precisa actualización. Se recomienda mantenerlo.
+  que precisa actualización. Se recomienda mantenerlo y hacer merge de las pull requests que se creen.
