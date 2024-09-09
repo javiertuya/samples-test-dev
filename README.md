@@ -64,7 +64,7 @@ Preparación del repositorio y del eproyecto:
 ## Reports
 
 La instalacion anterior compilará, ejecutará pruebas y dispondrá de los reports en carpetas dentro de `target`:
-- `site/testapidocs/index.html`: javadoc del proyecto
+- `reports/testapidocs/index.html`: javadoc del proyecto
 - `site/surefire-report.html`: report de las pruebas unitarias (ut)
 - `site/junit*`: report de todas las pruebas con el formato que genera junit
 - `site/jacoco-ut`: reports de cobertura de código

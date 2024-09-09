@@ -211,7 +211,8 @@
 				<configuration>
 					<overview>${basedir}/src/main/java/overview.html</overview>
 					<sourcepath>${basedir}/src/main/java;${basedir}/src/test/java;${basedir}/src/it/java</sourcepath>
-					<destDir>apidocs</destDir>
+					<!-- Desde v3.10, destDir ha sido eliminada, la doc indica que ahora es reportOutputDirectory
+					Pero esto tampoco funciona con v3.10, uso directorio por defecto: target/reports/testapidocs -->
 					<quiet>true</quiet>
 					<doclint>none</doclint>
 				</configuration>
@@ -220,8 +221,6 @@
 						<id>generate-all-javadocs</id>
 						<phase>install</phase>
 						<goals>
-							<!--normalmente este goal seria jar, no interesa el jar, solo el javadoc
-							y evita warnings/errores porque se estan generando javadocs de los tests-->
 							<goal>test-javadoc</goal>
 						</goals>
 					</execution>
