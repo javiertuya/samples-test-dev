@@ -32,7 +32,7 @@ jobs:
 
       - name: Publish surefire test report
         if: always()
-        uses: mikepenz/action-junit-report@v5.3.0
+        uses: mikepenz/action-junit-report@v5.4.0
         with:
           check_name: test-report
           report_paths: 'target/*-reports/TEST-*.xml'
