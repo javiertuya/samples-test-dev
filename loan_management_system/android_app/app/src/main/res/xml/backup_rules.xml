@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<full-backup-content>
+    <!-- TODO Remove the following backup rules, as they make your backup file huge.
+         Instead, define specific inclusions/exclusions. -->
+    <include domain="database" path="."/>
+    <include domain="sharedpref" path="."/>
+</full-backup-content>
