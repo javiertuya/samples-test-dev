@@ -24,32 +24,36 @@ public class Database extends DbUtil {
 	 * Crea una instancia, leyendo los parametros de driver y url de application.properties
 	 */
 	public Database() {
-		Properties prop=new Properties();
-		try (FileInputStream fs=new FileInputStream(APP_PROPERTIES)) {
+		Properties prop = new Properties();
+		try (FileInputStream fs = new FileInputStream(APP_PROPERTIES)) {
 			prop.load(fs);
 		} catch (IOException e) {
 			throw new ApplicationException(e);
 		}
-		driver=prop.getProperty("datasource.driver");
-		url=prop.getProperty("datasource.url");
-		if (driver==null || url==null)
+		driver = prop.getProperty("datasource.driver");
+		url = prop.getProperty("datasource.url");
+		if (driver == null || url == null)
 			throw new ApplicationException("Configuracion de driver y/o url no encontrada en application.properties");
 		DbUtils.loadDriver(driver);
 	}
+
 	public String getUrl() {
 		return url;
 	}
+
 	/** 
 	 * Creacion de una base de datos limpia a partir del script schema.sql en src/main/properties
 	 * (si onlyOnce=true solo ejecutara el script la primera vez
 	 */
 	public void createDatabase(boolean onlyOnce) {
-		//actua como singleton si onlyOnce=true: solo la primera vez que se instancia para mejorar rendimiento en pruebas
-		if (!databaseCreated || !onlyOnce) { 
+		// actua como singleton si onlyOnce=true: solo la primera vez que se instancia 
+		// para mejorar rendimiento en pruebas
+		if (!databaseCreated || !onlyOnce) {
 			executeScript(SQL_SCHEMA);
-			databaseCreated=true; //NOSONAR
+			databaseCreated = true; // NOSONAR
 		}
 	}
+
 	/** 
 	 * Carga de datos iniciales a partir del script data.sql en src/main/properties
 	 * (si onlyOnce=true solo ejecutara el script la primera vez

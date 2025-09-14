@@ -22,12 +22,14 @@ import java.util.Date;
  */
 @RunWith(Parameterized.class)
 public class TestInscripcionParametrized {
-	private static Database db=new Database();
+	private static Database db = new Database();
+
 	@Before
 	public void setUp() {
 		db.createDatabase(true);
-		giis.demo.tkrun.ut.TestInscripcion.loadCleanDatabase(db); 
+		giis.demo.tkrun.ut.TestInscripcion.loadCleanDatabase(db);
 	}
+
 	/**
 	 * La prueba testPorcentajeDescuentoRecargoValidas que se encuentra en TestInscripcionJUnit3
 	 * realiza cinco asserts en un mismo metodo, que en realidad son cinco tests que solo varian en los datos usados.
@@ -55,9 +57,9 @@ public class TestInscripcionParametrized {
 	@Parameter(value=2) public long idCarrera;
 	@Test
 	public void testPorcentajeDescuentoRecargoValidas() {
-		Date fecha=Util.isoStringToDate(fechaStr);
-		CarrerasModel inscr=new CarrerasModel();
-		assertEquals(descuentoRecargo,inscr.getDescuentoRecargo(idCarrera,fecha));
+		Date fecha = Util.isoStringToDate(fechaStr);
+		CarrerasModel inscr = new CarrerasModel();
+		assertEquals(descuentoRecargo, inscr.getDescuentoRecargo(idCarrera, fecha));
 	}
 
 }

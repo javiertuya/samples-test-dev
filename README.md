@@ -12,6 +12,7 @@ Este proyecto es utilizado como proyecto base o plantilla para el desarrollo y a
 
 Permite ilustrar, entre otros:
 - Repaso del uso de JDBC para acceder a bases de datos
+- Acceso a bases de datos con Apache Commons DbUtils
 - Un conjunto de utilidades para simplificar el acceso a base de datos y el uso de tablas en Swing
 - Implementación de MVC con Swing
 - Automatización de pruebas unitarias con varias versiones de JUnit
@@ -32,11 +33,11 @@ La estructura es la estándar de maven:
 
 Este proyecto requiere un mínimo de Java 8 JDK.
 
-Preparación del repositorio y del eproyecto:
+Preparación del repositorio y del proyecto:
 - Desde GitHub: Crear un **nuevo repositorio** usando este proyecto como plantilla
   (opción `Use this template` en este repositorio)
 - Desde el entorno de desarrollo local o desde linea de comandos:
-  **Clonar** el repositorio recién creado indicando su url
+  **Clonar** el repositorio recién creado indicando su url para crear el proyecto en el entorno de desarrollo local
   (si se hace desde linea de comandos: `git clone <url>`)
 - Cambiar el **nombre del proyecto**: Modificar estos ficheros:
   - `.project`: cambiar `<name>samples-test-dev</name>` para incluir el nombre del proyecto
@@ -52,7 +53,6 @@ Preparación del repositorio y del eproyecto:
   - Ejecución sin tests: `mvn install -DskipTests=true`, genera todos los jar incluyendo javadoc
 
 - Desde Eclipse con M2Eclipse instalado (las distribuciones recientes ya lo incluyen).
-  Desde la raiz del proyecto:
   - Asegurarse de que esta configurado JDK: Desde build path, editar JRE System Library y en Environment
 	comprobar que JavaSE-1.8 apunta a un JDK en vez de un JRE
   - *Maven->Update Project*: Actualiza todas las dependencias y permite usar el proyecto como 
@@ -65,7 +65,7 @@ Preparación del repositorio y del eproyecto:
 
 La instalacion anterior compilará, ejecutará pruebas y dispondrá de los reports en carpetas dentro de `target`:
 - `reports/testapidocs/index.html`: javadoc del proyecto
-- `site/surefire-report.html`: report de las pruebas unitarias (ut)
+- `reports/surefire.html`: report estandar de las pruebas unitarias (ut)
 - `site/junit*`: report de todas las pruebas con el formato que genera junit
 - `site/jacoco-ut`: reports de cobertura de código
 

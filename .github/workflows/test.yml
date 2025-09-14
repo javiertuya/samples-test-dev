@@ -24,8 +24,6 @@ jobs:
           java-version: '8'
           cache: 'maven'
 
-      # - name: Build and test UT
-      #   run: mvn test -Dmaven.test.failure.ignore=true -U --no-transfer-progress
       # Aunque solo los test it que ejecutan swing requieren un display Xvfb, ejecuto todo bajo esta accion
       - name: Build and run all tests
         run: mvn verify -Dmaven.test.failure.ignore=true -U --no-transfer-progress
@@ -45,3 +43,6 @@ jobs:
           name: test-reports-files
           path: |
              target/site/
+             target/reports/surefire.html
+
+      # No ejecuta sonar, esto ya ha sido realizado en samples-test-java

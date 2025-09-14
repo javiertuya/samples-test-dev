@@ -38,6 +38,10 @@ public class TestInscripcion {
 			});
 	}
 	
+	////////////////////////////////////////////////
+	/// Pruebas de obtencion de la lista de carreras
+	////////////////////////////////////////////////
+	
 	/**
 	 * Comprueba la lista de carreras que ve el usuario en el momento de la inscripcion para diferentes fases de inscripcion:
 	 * Debe mostrar todas las carreras excluyendo las pasadas, indicando Abierto en las que se puede realizar inscripcion;
@@ -69,6 +73,7 @@ public class TestInscripcion {
 				"101-en fase 3 (Abierta)\n102-en fase 2 (Abierta)\n103-en fase 1 (Abierta)\n104-antes inscripcion ",
 				list2string(carreras));
 	}
+	
 	/** Convierte una lista de Object[] a un string, separando cada item por salto de linea */
 	private String list2string(List<Object[]> lst) {
 		StringBuilder s=new StringBuilder();
@@ -76,6 +81,7 @@ public class TestInscripcion {
 			s.append((i==0?"":"\n") + lst.get(i)[0]);
 		return s.toString();
 	}
+	
 	/**
 	 * Otra version de una variante del metodo getListaCarreras, en este caso el DAO devuele una lista de objetos con tres valores,
 	 * las comparaciones se realizan para cada uno de ellos.
@@ -116,6 +122,7 @@ public class TestInscripcion {
 				+"{\"id\":\"104\",\"descr\":\"antes inscripcion\",\"estado\":\"\"}]",
 				Util.serializeToJson(CarreraDisplayDTO.class,carreras,false));
 	}
+	
 	/**
 	 * Otra alternativa que facilita la comparacion, en vez de comparar con el Json completo se compara
 	 * con una representacion estilo CSV en el que cada atributo del objeto se representa como un elemento de un array
@@ -130,6 +137,7 @@ public class TestInscripcion {
         		+"104,antes inscripcion,\n", 
         		Util.pojosToCsv(carreras,new String[] {"id","descr","estado"}));
  	}
+	
 	/**
 	 * Igual que el anterior, pero utiliza otro componente (visual-assert) para comparar
 	 * y generar un archivo html con las diferencias, que se puede revisar sin depender del entorno Eclipse
@@ -147,8 +155,11 @@ public class TestInscripcion {
         		Util.pojosToCsv(carreras,new String[] {"id","descr","estado"}));
  	}
 	
-	// Tipicamente para clases invalidas el comportamiento deseado es que se produzca una excepcion.
-	// A continuacion se realiza lo mismo de tres formas distintas
+	////////////////////////////////////////////////
+	/// Pruebas de excepciones:
+	/// Tipicamente, para clases invalidas el comportamiento deseado es que se produzca una excepcion.
+	/// A continuacion se realiza lo mismo de tres formas distintas
+	////////////////////////////////////////////////
 	
 	/**
 	 * Metodo 1 para comprobacion de excepciones:
@@ -162,6 +173,7 @@ public class TestInscripcion {
 		CarrerasModel inscr=new CarrerasModel();
 		inscr.getListaCarreras(null);
 	}
+	
 	/**
 	 * Metodo 2 para comprobacion de excepciones en JUnit 4:
 	 * Requiere utilizar una regla que declara la clase de la excepcion esperada
@@ -178,6 +190,7 @@ public class TestInscripcion {
 		thrown.expectMessage("La fecha de inscripcion no puede ser nula");
 		inscr.getListaCarreras(null);
 	}
+	
 	/**
 	 * Metodo 3 para comprobacion de excepciones en JUnit 4:
 	 * Utiliza una expresion lambda y un assert, en el que en vez de indicar salida actual y esperada,
@@ -193,6 +206,10 @@ public class TestInscripcion {
 		});
 		assertEquals("La fecha de inscripcion no puede ser nula", exception.getMessage());
 	}
+
+	/////////////////////////////////////////////////
+	/// Pruebas de la obtencion del descuento/recargo
+	/////////////////////////////////////////////////
 
 	/**
 	 * Determinacion del descuento o recargo porcentual segun la fecha de inscripcion

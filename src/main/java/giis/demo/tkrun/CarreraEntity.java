@@ -21,13 +21,13 @@ public class CarreraEntity {
 	public String getFin() { return this.fin; }
 	public String getFecha() { return this.fecha; }
 	public String getDescr() { return this.descr; }
-	public void setId(String value) { this.id=value; }
-	public void setInicio(String value) { this.inicio=value; }
-	public void setFin(String value) { this.fin=value; }
-	public void setFecha(String value) { this.fecha=value; }
-	public void setDescr(String value) { this.descr=value; }
-	//NOTA: se pueden generar getters y setters de forma automatica usando lombok:  
-	//https://www.sitepoint.com/declutter-pojos-with-lombok-tutorial/
-	//http://www.baeldung.com/intro-to-project-lombok
-	//En un fichero con este mismo nombre, pero con extension .txt se muestra un ejemplo
+	public void setId(String value) { this.id = value; }
+	public void setInicio(String value) { this.inicio = value; }
+	public void setFin(String value) { this.fin = value; }
+	public void setFecha(String value) { this.fecha = value; }
+	public void setDescr(String value) { this.descr = value; }
+	// NOTA: se pueden generar getters y setters de forma automatica usando lombok:  
+	// https://www.sitepoint.com/declutter-pojos-with-lombok-tutorial/
+	// http://www.baeldung.com/intro-to-project-lombok
+	// En un fichero con este mismo nombre, pero con extension .txt se muestra un ejemplo
 }

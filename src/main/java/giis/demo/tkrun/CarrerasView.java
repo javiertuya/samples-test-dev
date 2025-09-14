@@ -50,49 +50,49 @@ public class CarrerasView {
 		frame.setBounds(0, 0, 492, 422);
 		frame.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new MigLayout("", "[grow]", "[][][grow][][][][][][][][]"));
-		
+
 		final JLabel lblSimulacion;
 		final JLabel lblFechaHoy;
 		final JLabel lblLstCarreras;
 
 		lblSimulacion = new JLabel("Simulación de la fecha de hoy para mostrar las carreras");
 		frame.getContentPane().add(lblSimulacion, "cell 0 1");
-		
+
 		lblFechaHoy = new JLabel("Fecha de hoy (formato ISO):");
 		frame.getContentPane().add(lblFechaHoy, "flowx,cell 0 3");
-		
+
 		txtFechaHoy = new JTextField();
 		txtFechaHoy.setName("txtFechaHoy");
 		frame.getContentPane().add(txtFechaHoy, "cell 0 3,growx");
 		txtFechaHoy.setColumns(10);
-		
+
 		btnTabCarreras = new JButton("Ver carreras en esta tabla");
 		lblFechaHoy.setLabelFor(btnTabCarreras);
 		frame.getContentPane().add(btnTabCarreras, "cell 0 3");
-		
+
 		JLabel lblLbltable = new JLabel("Proximas carreras:");
 		frame.getContentPane().add(lblLbltable, "cell 0 4");
-		
-		//Incluyo la tabla en un JScrollPane y anyado este en vez de la tabla para poder ver los headers de la tabla
+
+		// Incluyo la tabla en un JScrollPane y anyado este en vez de la tabla para poder ver los headers de la tabla
 		tabCarreras = new JTable();
 		tabCarreras.setName("tabCarreras");
 		tabCarreras.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		tabCarreras.setDefaultEditor(Object.class, null); //readonly
+		tabCarreras.setDefaultEditor(Object.class, null); // readonly
 		JScrollPane tablePanel = new JScrollPane(tabCarreras);
 		frame.getContentPane().add(tablePanel, "cell 0 5,grow");
-		
+
 		lblLstCarreras = new JLabel("La misma informacion que en la tabla, pero en forma de lista/combo");
 		frame.getContentPane().add(lblLstCarreras, "cell 0 6");
-		
+
 		lstCarreras = new JComboBox<>();
 		frame.getContentPane().add(lstCarreras, "cell 0 7,growx");
-		
+
 		JLabel lblAlSeleccionarLa = new JLabel("Al seleccionar la tabla (no el combo) muestra detalles");
 		frame.getContentPane().add(lblAlSeleccionarLa, "cell 0 8");
-		
+
 		JLabel lblPorcentajeDescuento = new JLabel("Porcentaje de descuento: ");
 		frame.getContentPane().add(lblPorcentajeDescuento, "flowx,cell 0 9");
-		
+
 		descuento = new JLabel("##");
 		descuento.setName("descuento");
 		descuento.setFont(UIManager.getFont("TextField.font"));
@@ -101,11 +101,11 @@ public class CarrerasView {
 		tabDetalle = new JTable();
 		tabDetalle.setName("tabDetalle");
 		tabDetalle.setRowSelectionAllowed(false);
-		tabDetalle.setDefaultEditor(Object.class, null); //readonly
+		tabDetalle.setDefaultEditor(Object.class, null); // readonly
 		tabDetalle.setBackground(SystemColor.control);
 		JScrollPane tableDetallePanel = new JScrollPane(tabDetalle);
-		tableDetallePanel.setMinimumSize(new Dimension(200,95));
-		tableDetallePanel.setPreferredSize(new Dimension(300,95));
+		tableDetallePanel.setMinimumSize(new Dimension(200, 95));
+		tableDetallePanel.setPreferredSize(new Dimension(300, 95));
 		frame.getContentPane().add(tableDetallePanel, "cell 0 10");
 	}
 

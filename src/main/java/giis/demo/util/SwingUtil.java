@@ -32,30 +32,31 @@ public class SwingUtil {
 	public static void exceptionWrapper(Runnable consumer) {
 		try {
 			consumer.run();
-		} catch (ApplicationException e) { //excepcion controlada de la que se puede recuperar la aplicacion
-			showMessage(e.getMessage(), "Informacion",JOptionPane.INFORMATION_MESSAGE);
-		} catch (RuntimeException e) { //resto de excepciones, ademas de la ventana informativa muestra el stacktrace
-			e.printStackTrace(); //NOSONAR
-			showMessage(e.toString(), "Excepcion no controlada",JOptionPane.ERROR_MESSAGE);
+		} catch (ApplicationException e) { // excepcion controlada de la que se puede recuperar la aplicacion
+			showMessage(e.getMessage(), "Informacion", JOptionPane.INFORMATION_MESSAGE);
+		} catch (RuntimeException e) { // resto de excepciones, ademas de la ventana informativa muestra el stacktrace
+			e.printStackTrace(); // NOSONAR
+			showMessage(e.toString(), "Excepcion no controlada", JOptionPane.ERROR_MESSAGE);
 		}
-	}	 
+	}
+
 	private static void showMessage(String message, String title, int type) {
-		//Como este metodo no recibe el contexto de la ventana de la aplicacion, 
-		//no usa el metodo estatico showMessageDialog de JOptionPane 
-		//y establece la posicion para que no aparezca en el centro de la pantalla
-	    JOptionPane pane = new JOptionPane(message,type,JOptionPane.DEFAULT_OPTION);
-	    pane.setOptions(new Object[] {"ACEPTAR"}); //fija este valor para que no dependa del idioma
-	    JDialog d = pane.createDialog(pane, title);
-	    d.setLocation(200,200);
-	    d.setVisible(true);
+		// Como este metodo no recibe el contexto de la ventana de la aplicacion,
+		// no usa el metodo estatico showMessageDialog de JOptionPane
+		// y establece la posicion para que no aparezca en el centro de la pantalla
+		JOptionPane pane = new JOptionPane(message, type, JOptionPane.DEFAULT_OPTION);
+		pane.setOptions(new Object[] { "ACEPTAR" }); // fija este valor para que no dependa del idioma
+		JDialog d = pane.createDialog(pane, title);
+		d.setLocation(200, 200);
+		d.setVisible(true);
 	}
 	
 	/**
 	 * Ajusta todas las columnas de la tabla al tamanyo correspondiente al contenido del tablemodel
 	 */
 	public static void autoAdjustColumns(JTable table) {
-		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF); //si se usa ON la ultima columna se expandra en el panel
-		TableColumnAdjuster tca=new TableColumnAdjuster(table);
+		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF); // si se usa ON la ultima columna se expandra en el panel
+		TableColumnAdjuster tca = new TableColumnAdjuster(table);
 		tca.adjustColumns();
 	}
 
@@ -63,10 +64,10 @@ public class SwingUtil {
 	 * Obtiene la key (primera columna) de la fila seleccionada en la tabla de carreras o string vacio (si no existe)
 	 */
 	public static String getSelectedKey(JTable table) {
-		int row=table.getSelectedRow(); //el item de primera columna es el id de carrera
-		if (row>=0)
-			return (String)table.getModel().getValueAt(row,0);
-		else //no hay filas seleccionadas
+		int row = table.getSelectedRow(); // el item de primera columna es el id de carrera
+		if (row >= 0)
+			return (String) table.getModel().getValueAt(row, 0);
+		else // no hay filas seleccionadas
 			return "";
 	}
 	
@@ -75,12 +76,12 @@ public class SwingUtil {
 	 * (la misma clave o string vacio si no existe la fila)
 	 */
 	public static String selectAndGetSelectedKey(JTable table, String key) {
-		for (int i=0; i<table.getModel().getRowCount(); i++)
+		for (int i = 0; i < table.getModel().getRowCount(); i++)
 			if (table.getModel().getValueAt(i, 0).equals(key)) {
 				table.setRowSelectionInterval(i, i);
 				return key;
 			}
-		return ""; //ya no existe esta clave
+		return ""; // ya no existe esta clave
 	}
 
 	//http://www.baeldung.com/apache-commons-beanutils
@@ -94,19 +95,19 @@ public class SwingUtil {
 	 * (cada uno debe disponer del correspondiente getter)
 	 */
 	public static <E> TableModel getTableModelFromPojos(List<E> pojos, String[] colProperties) {
-		//Creacion inicial del tablemodel y dimensionamiento
-		//tener en cuenta que para que la tabla pueda mostrar las columnas debera estar dentro de un JScrollPane
+		// Creacion inicial del tablemodel y dimensionamiento
+		// tener en cuenta que para que la tabla pueda mostrar las columnas debera estar dentro de un JScrollPane
 		TableModel tm;
-		if (pojos==null) //solo las columnas (p.e. para inicializaciones)
-			return new DefaultTableModel(colProperties,0);
+		if (pojos == null) // solo las columnas (p.e. para inicializaciones)
+			return new DefaultTableModel(colProperties, 0);
 		else
-			tm=new DefaultTableModel(colProperties, pojos.size());
-		//carga cada uno de los valores de pojos usando PropertyUtils (de apache coommons beanutils)
-		for (int i=0; i<pojos.size(); i++) {
-			for (int j=0; j<colProperties.length; j++) {
+			tm = new DefaultTableModel(colProperties, pojos.size());
+		// carga cada uno de los valores de pojos usando PropertyUtils (de apache coommons beanutils)
+		for (int i = 0; i < pojos.size(); i++) {
+			for (int j = 0; j < colProperties.length; j++) {
 				try {
-					Object pojo=pojos.get(i);
-					Object value=PropertyUtils.getSimpleProperty(pojo, colProperties[j]);
+					Object pojo = pojos.get(i);
+					Object value = PropertyUtils.getSimpleProperty(pojo, colProperties[j]);
 					tm.setValueAt(value, i, j);
 				} catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
 					throw new UnexpectedException(e);
@@ -115,22 +116,23 @@ public class SwingUtil {
 		}
 		return tm;
 	}
+
 	public static <E> TableModel getRecordModelFromPojo(E pojo, String[] colProperties) {
-		//Creacion inicial del tablemodel y dimensionamiento
-		//como solo habra dos columnas pongo una cabecera con dos valores vacios, de forma que 
-		//aparezca muy reducida pero con el handler necesario para poder redimensionarla
+		// Creacion inicial del tablemodel y dimensionamiento
+		// como solo habra dos columnas pongo una cabecera con dos valores vacios, de forma que
+		// aparezca muy reducida pero con el handler necesario para poder redimensionarla
 		TableModel tm;
-		tm=new DefaultTableModel(new String[] {"",""}, colProperties.length);
-		//carga cada uno de los valores de pojos usando PropertyUtils (de apache coommons beanutils)
-			for (int j=0; j<colProperties.length; j++) {
-				try {
-					tm.setValueAt(colProperties[j], j, 0);
-					Object value=PropertyUtils.getSimpleProperty(pojo, colProperties[j]);
-					tm.setValueAt(value, j, 1);
-				} catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-					throw new UnexpectedException(e);
-				}
+		tm = new DefaultTableModel(new String[] { "", "" }, colProperties.length);
+		// carga cada uno de los valores de pojos usando PropertyUtils (de apache coommons beanutils)
+		for (int j = 0; j < colProperties.length; j++) {
+			try {
+				tm.setValueAt(colProperties[j], j, 0);
+				Object value = PropertyUtils.getSimpleProperty(pojo, colProperties[j]);
+				tm.setValueAt(value, j, 1);
+			} catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+				throw new UnexpectedException(e);
 			}
+		}
 		return tm;
 	}
 	
@@ -139,14 +141,12 @@ public class SwingUtil {
 	 * @param lst Lista de arrays de objetos de los cuales se usara el primero de cada uno de ellos para poblar el combo
 	 */
 	public static ComboBoxModel<Object> getComboModelFromList(List<Object[]> lst) {
-		DefaultComboBoxModel<Object> cm=new DefaultComboBoxModel<>();
-		for (int i=0; i<lst.size(); i++) {
-			Object value=lst.get(i)[0];
+		DefaultComboBoxModel<Object> cm = new DefaultComboBoxModel<>();
+		for (int i = 0; i < lst.size(); i++) {
+			Object value = lst.get(i)[0];
 			cm.addElement(value);
 		}
 		return cm;
-	}
-	
-	
+	}	
 
 }

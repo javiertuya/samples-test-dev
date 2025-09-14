@@ -8,23 +8,27 @@ import junit.framework.TestCase;
  */
 public class TestDemoJdbc extends TestCase {
 	public void testDemo1Basic() {
-		DemoJdbc d=new DemoJdbc();
+		DemoJdbc d = new DemoJdbc();
 		d.demo1Basic();
 	}
+
 	public void testDemo2TryWithResources() {
-		DemoJdbc d=new DemoJdbc();
+		DemoJdbc d = new DemoJdbc();
 		d.demo2TryWithResources();
 	}
+
 	public void testDemo3Parameters() {
-		DemoJdbc d=new DemoJdbc();
+		DemoJdbc d = new DemoJdbc();
 		d.demo3Parameters();
 	}
+
 	public void testDemo4DbUtils() {
-		DemoJdbc d=new DemoJdbc();
+		DemoJdbc d = new DemoJdbc();
 		d.demo4DbUtils();
 	}
+
 	public void testDemo5Autoincrement() {
-		DemoJdbc d=new DemoJdbc();
+		DemoJdbc d = new DemoJdbc();
 		d.demo5Autoincrement();
 	}
 }

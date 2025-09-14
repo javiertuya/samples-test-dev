@@ -71,12 +71,14 @@
 		    <artifactId>slf4j-reload4j</artifactId>
 		    <version>${slf4j.version}</version>
 		</dependency>
+		
 		<!-- UI swing -->
 		<dependency>
 			<groupId>com.miglayout</groupId>
 			<artifactId>miglayout</artifactId>
 			<version>3.7.4</version>
 		</dependency>
+		
 		<!-- utilidades varias para manejo de objetos y json -->
 		<dependency>
 			<groupId>commons-dbutils</groupId>

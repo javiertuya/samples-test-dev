@@ -20,15 +20,17 @@ import java.util.Date;
  */
 @RunWith(JUnitParamsRunner.class)
 public class TestInscripcionJUnitParams {
-	private static Database db=new Database();
+	private static Database db = new Database();
+
 	@Before
 	public void setUp() {
 		db.createDatabase(true);
-		giis.demo.tkrun.ut.TestInscripcion.loadCleanDatabase(db); 
+		giis.demo.tkrun.ut.TestInscripcion.loadCleanDatabase(db);
 	}
+
 	/**
-	 * El test simplemente tiene que indicar un array de tests, en cada uno de ellos los parametros en formato csv,
-	 * y los argumentos se ponen directamente en el metodo de prueba
+	 * El test simplemente tiene que indicar un array de tests, en cada uno de ellos los parametros en formato csv, y
+	 * los argumentos se ponen directamente en el metodo de prueba
 	 */
 	@Test
 	@Parameters({ 
@@ -38,11 +40,11 @@ public class TestInscripcionJUnitParams {
 		"2016-11-15, -30, 103",
 		"2016-11-19,   0, 102"})
 	public void testPorcentajeDescuentoRecargoValidas(String fechaStr, int descuentoRecargo, long idCarrera) {
-		Date fecha=Util.isoStringToDate(fechaStr);
-		CarrerasModel inscr=new CarrerasModel();
-		assertEquals(descuentoRecargo,inscr.getDescuentoRecargo(idCarrera,fecha));
+		Date fecha = Util.isoStringToDate(fechaStr);
+		CarrerasModel inscr = new CarrerasModel();
+		assertEquals(descuentoRecargo, inscr.getDescuentoRecargo(idCarrera, fecha));
 	}
-	
+
 	/**
 	 * De la misma forma se pueden probar las clases invalidas que comprueban que aparezca una excepcion
 	 */
@@ -52,10 +54,10 @@ public class TestInscripcionJUnitParams {
 		"104, No es posible la inscripcion en esta fecha",
 		"99, Id de carrera no encontrado: 99"})
 	public void testPorcentajeDescuentoRecargoInvalidas(long idCarrera, String message) {
-		Date fecha=Util.isoStringToDate("2016-11-10");
-		CarrerasModel inscr=new CarrerasModel();
-		ApplicationException exception=assertThrows(ApplicationException.class, () -> {
-			inscr.getDescuentoRecargo(idCarrera,fecha);
+		Date fecha = Util.isoStringToDate("2016-11-10");
+		CarrerasModel inscr = new CarrerasModel();
+		ApplicationException exception = assertThrows(ApplicationException.class, () -> {
+			inscr.getDescuentoRecargo(idCarrera, fecha);
 		});
 		assertEquals(message, exception.getMessage());
 	}
