@@ -38,7 +38,7 @@ jobs:
  
       - if: always()
         name: Publish html test reports to an artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: test-reports-files
           path: |
