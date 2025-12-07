@@ -21,7 +21,7 @@ jobs:
         uses: actions/setup-java@v5
         with:
           distribution: 'temurin'
-          java-version: '8'
+          java-version: '17'
           cache: 'maven'
 
       # Aunque solo los test it que ejecutan swing requieren un display Xvfb, ejecuto todo bajo esta accion
@@ -43,6 +43,7 @@ jobs:
           name: test-reports-files
           path: |
              target/site/
+             target/surefire-reports/
              target/reports/surefire.html
 
       # No ejecuta sonar, esto ya ha sido realizado en samples-test-java

@@ -1,11 +1,16 @@
 package giis.demo.tkrun.ut;
-import org.junit.*;
-import static org.junit.Assert.assertEquals;
 
-import giis.demo.tkrun.*;
-import giis.demo.util.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import giis.demo.tkrun.CarreraEntity;
+import giis.demo.tkrun.CarrerasModel;
+import giis.demo.util.Database;
+import giis.demo.util.Util;
 
 /**
  * Ejemplo de comprobación de resultados en pruebas que actualizan la base de datos.
@@ -15,7 +20,7 @@ import java.util.List;
 public class TestUpdates {
 	private static Database db = new Database();
 
-	@Before
+	@BeforeEach
 	public void setUp() {
 		db.createDatabase(true);
 		giis.demo.tkrun.ut.TestInscripcion.loadCleanDatabase(db);
@@ -32,19 +37,21 @@ public class TestUpdates {
 		// el test habra modificado las dos fechas de la carrera 101,
 		// lee todos los datos de la tabla y las compara con los iniciales tras cambiar solamente estos dos datos
 		List<CarreraEntity> carreras = db.executeQueryPojo(CarreraEntity.class, "SELECT * FROM carreras ORDER BY id");
-        assertEquals(
-				"100,2016-10-05,2016-10-25,2016-11-09,finalizada\n"
-				+"101,2016-09-01,2016-09-02,2016-11-10,en fase 3\n"
-				+"102,2016-11-05,2016-11-09,2016-11-20,en fase 2\n"
-				+"103,2016-11-10,2016-11-15,2016-11-21,en fase 1\n"
-				+"104,2016-11-11,2016-11-15,2016-11-22,antes inscripcion\n",
+        assertEquals("""
+				100,2016-10-05,2016-10-25,2016-11-09,finalizada
+				101,2016-09-01,2016-09-02,2016-11-10,en fase 3
+				102,2016-11-05,2016-11-09,2016-11-20,en fase 2
+				103,2016-11-10,2016-11-15,2016-11-21,en fase 1
+				104,2016-11-11,2016-11-15,2016-11-22,antes inscripcion
+				""",
         		Util.pojosToCsv(carreras, new String[] {"id","inicio","fin","fecha","descr"}));
  	}
 	
 	/**
 	 * Lo anterior comprueba todos los datos pero es dificil de establecer los valores deseados
 	 * pues hay que reproducir todo el contenido de la tabla inicial salvo lo que debe cambiar.
-	 * Otra forma mas facil crear primero la salida deseada leyendo de la base de datos y modificando solo los valores que cambian
+	 * Otra forma mas facil crear primero la salida deseada leyendo de la base de datos y modificando 
+	 * solo los valores que cambian
 	 */
 	@Test
 	public void testUpdateFechasInscripcion2() {

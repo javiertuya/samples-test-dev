@@ -31,7 +31,7 @@ La estructura es la estándar de maven:
 
 ## Requisitos e Instalación
 
-Este proyecto requiere un mínimo de Java 8 JDK.
+Este proyecto requiere un mínimo de Java 17 JDK.
 
 Preparación del repositorio y del proyecto:
 - Desde GitHub: Crear un **nuevo repositorio** usando este proyecto como plantilla
@@ -54,7 +54,7 @@ Preparación del repositorio y del proyecto:
 
 - Desde Eclipse con M2Eclipse instalado (las distribuciones recientes ya lo incluyen).
   - Asegurarse de que esta configurado JDK: Desde build path, editar JRE System Library y en Environment
-	comprobar que JavaSE-1.8 apunta a un JDK en vez de un JRE
+	comprobar que JavaSE-17 apunta a un JDK en vez de un JRE
   - *Maven->Update Project*: Actualiza todas las dependencias y permite usar el proyecto como 
     si hubiera sido creado desde el propio Eclipse
   - *Run As->Maven install*: Ejecuta este (o otros) comandos maven desde Eclipse
