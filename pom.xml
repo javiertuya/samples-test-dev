@@ -5,7 +5,7 @@
 
 	<groupId>giis</groupId>
 	<artifactId>samples-test-dev</artifactId>
-	<version>3.0.0</version>
+	<version>3.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<organization>
 		<name>Grupo de Investigacion en Ingenieria del Software - Universidad de Oviedo</name>
