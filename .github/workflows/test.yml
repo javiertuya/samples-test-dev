@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout GitHub repo
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
       - name: Select Java Version
         uses: actions/setup-java@v5
         with:
@@ -30,7 +30,7 @@ jobs:
 
       - name: Publish surefire test report
         if: always()
-        uses: mikepenz/action-junit-report@v6.0.1
+        uses: mikepenz/action-junit-report@v6.1.0
         with:
           check_name: test-report
           report_paths: 'target/*-reports/TEST-*.xml'
@@ -38,7 +38,7 @@ jobs:
  
       - if: always()
         name: Publish html test reports to an artifact
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: test-reports-files
           path: |
