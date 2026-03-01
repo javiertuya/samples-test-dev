@@ -24,7 +24,7 @@
 		
 		<junit.version>6.0.2</junit.version>
 		
-		<surefire.version>3.5.4</surefire.version>
+		<surefire.version>3.5.5</surefire.version>
 		
 		<slf4j.version>2.0.17</slf4j.version>
 		
