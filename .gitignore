@@ -3,3 +3,6 @@ target
 #sqlite databases
 *.db 
 
+.project
+.classpath
+.settings
